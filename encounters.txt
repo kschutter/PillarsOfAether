@@ -1,0 +1,4 @@
+titleScreen|Title Screen|
+test_marketplace|The Market|
+test_inn|The Red Dragon Inn|
+fight_test_kobold|a weak Kobold|The malicious, starved kobold shifts from foot to foot as he eyes your fleshy bones, already salivating as he contemplates where to take a bite first. The gaunt creature is far too gone for words, and you doubt you will be able to calm him down enough to reason with the rabid humanoid. Due to your own lack of weapons, you musn't let your guard down.|

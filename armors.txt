@@ -1,0 +1,2 @@
+full_leather|Leather Armor|.9|false|true|true|true|false|false|false|
+part_leather|Partial Leather Armor|.9|false|false|true|true|false|false|false|

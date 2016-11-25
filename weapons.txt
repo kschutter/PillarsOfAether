@@ -1,0 +1,3 @@
+unarmed|unarmed|false|1.0|str|bludg|false|
+basicKnife|Blunt Knife|1.5|str|dex|slash|false|
+shortsword|Short Sword|2.0|str|slash|false|
