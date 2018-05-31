@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -8,69 +9,37 @@ import java.util.Scanner;
  *
  */
 public class Weapon extends Item {
-	
-	private Boolean isRanged;
-	private double dmgMod;
-	private String dmgStat;
-	private String dmgType;
-	private Boolean isMagic;
-	
-	//test weapon will default to fist
-	private Weapon(String itemID, String name, Boolean isRanged, double dmgMod, 
-			String dmgStat, String dmgType, Boolean isMagic) {
-		this.name = name;
-		this.isRanged = isRanged;
-		this.dmgMod = dmgMod;
-		this.dmgStat = dmgStat;
-		this.dmgType = dmgType;
-		this.isMagic = isMagic;
+
+	private static String WEAPONFILE = "Aether/weapons.txt";
+
+	private HashMap<String, String> details;
+
+	/**
+	 * @param details a hashmap of all characteristics of this item
+	 */
+	private Weapon(HashMap<String, String> details) {
+		super(details);
 	}
 	
-	//load the designated weapon from weapons.txt
-	public Weapon loadWeapon(String weapID) {
-		itemID = weapID;
-		Scanner in = new Scanner(System.in);
-		try {
-			in.close();
-			in = new Scanner(new File("weapons.txt"));
-		}
-		catch (FileNotFoundException e) {
-			System.out.println("Did you move weapons.txt?");
-		}
-		
-		//find and parse the given weapon
-		String[] str;
-		do {
-			str = in.next().split("|");
-		} while (!str[0].equals(weapID));
-		
-		return new Weapon(str[0], str[1], Boolean.parseBoolean(str[2]),
-				Double.parseDouble(str[3]), str[4], str[5], 
-				Boolean.parseBoolean(str[6]));
+	// load the designated weapon from weapons.txt
+	public static Weapon loadWeapon(String weapID) {
+		return (Weapon) loadItem(weapID, WEAPONFILE);
 	}
 	
-	//
-	
-	public String getName() {
-		return name;
-	}
+	// getters and setters
 	public Boolean getIsRanged() {
-		return isRanged;
+		return Boolean.valueOf(details.get("isRanged"));
 	}
 	public String getDmgStat() {
-		return dmgStat;
+		return details.get("dmgStat");
 	}
 	public double getDmgMod() {
-		return dmgMod;
+		return Double.parseDouble(details.get("dmgMod"));
+	}
+	public void setDmgMod(String newDmgMod) {
+		details.put("dmgMod", newDmgMod);
 	}
 	public String getDmgType() {
-		return dmgType;
-	}
-	
-	public Boolean getIsMagic() {
-		return isMagic;
-	}
-	public void setIsMagic(Boolean isMagic) {
-		this.isMagic = isMagic;
+		return details.get("dmgType");
 	}
 }

@@ -1,2 +1,25 @@
-full_leather|Leather Armor|.9|false|true|true|true|false|false|false|
-part_leather|Partial Leather Armor|.9|false|false|true|true|false|false|false|
+itemID = padded
+name = Padded Armor
+desc = Consisting of quilted layers of cloth and batting, this rugged suit offers little more protection than street clothes.
+defMod = .9
+legCover = true
+magicDef = false
+isMagic = false
+
+itemID = leather
+name = Leather Armor
+desc = The essential pieces of this armor are made of leather that has been stiffened by being boiled in oil. The rest is made of softer and more flexible materials.
+defMod = .8
+headCover = false
+legCover = true
+magicDef = false
+isMagic = false
+
+itemID =
+name =
+desc =
+defMod =
+headCover =
+legCover =
+magicDef =
+isMagic =

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ public class Encounter extends JFrame {
 	private static final int TEXT_WIDTH = 35;
 	private static final int TEXT_HEIGHT = 18;
 	protected static final Font BUTTONFONT = new Font("Button Font", Font.PLAIN, 36);
+	protected static final String ENCOUNTERFILE = "encounters.txt";
 	
 	//instance variables
 	protected JPanel panel;
@@ -32,7 +34,7 @@ public class Encounter extends JFrame {
 	protected JButton[] choices = new JButton[8];
 	protected static JLabel name;
 	protected static JTextArea desc;
-	protected static String[] details;
+	protected static HashMap<String, String> details;
 	protected static Encounter formattedPanel;
 	
 	/**
@@ -44,18 +46,22 @@ public class Encounter extends JFrame {
 		Scanner in = new Scanner(System.in);
 		try {
 			in.close();
-			in = new Scanner(new File("encounters.txt"));
+			in = new Scanner(new File(ENCOUNTERFILE));
 		} 
 		catch (FileNotFoundException e) {
-			System.out.print("Have you removed the encounters.txt file?");
+			System.out.print("Have you removed " + ENCOUNTERFILE + "?");
+		}
+
+		//Skims through encounters.txt to find the requested encounter
+		while (!in.nextLine().equals("encounterID = " + encounterID)) {}
+
+		details.put("encounterID", encounterID);
+		String[] line = in.nextLine().split(" = ");
+		while (!line.equals("")) {
+			details.put(line[0], line[1]);
 		}
 		
-		//split on "|", finding the line with the given ID
-		do {
-			details = in.nextLine().split("\\|");
-		} while (!details[0].equals(encounterID));
-		
-		name = new JLabel(details[1]);
+		name = new JLabel(details.get("name"));
 		name.setFont(new Font(name.getName(), Font.PLAIN, 48));
 		
 		createPanel();
@@ -65,7 +71,6 @@ public class Encounter extends JFrame {
 	/**
 	 * 
 	 * @param encounterID designates the scene
-	 * @return the panel to add to the main frame
 	 * @throws FileNotFoundException
 	 */
 	public static void startEncounter(String encounterID, Game run){
@@ -82,7 +87,7 @@ public class Encounter extends JFrame {
 		run.pack();
 	}
 	
-	//create panel to return
+	//create panel
 	public void createPanel() {
 		panel = new JPanel();
 		panel.setVisible(true);

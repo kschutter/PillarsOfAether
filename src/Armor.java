@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -9,109 +10,61 @@ import java.util.Scanner;
  */
 public class Armor extends Item {
 	
-	private static final int ITEMID = 0, NAME = 1, DEFMOD = 2, HEADCOVER = 3,
-			LEGCOVER = 4, BLUDG = 5, SLASH = 6, PIERCE = 7, MAGICDEF = 8, 
-			ISMAGIC = 9, DESC = 10;
-	
-	private double defMod;
-	private Boolean headCover, legCover, bludg, slash, pierce, magicDef, isMagic;
-	
-	private Armor(String itemID, String name, double defMod, Boolean headCover,
-			Boolean legCover, Boolean bludg, Boolean slash, Boolean pierce, 
-			Boolean magicDef, Boolean isMagic, String desc) {
-		this.itemID = itemID;
-		this.name = name;
-		this.defMod = defMod;
-		this.headCover = headCover;
-		this.legCover = legCover;
-		this.bludg = bludg;
-		this.slash = slash;
-		this.pierce = pierce;
-		this.magicDef = magicDef;
-		this.isMagic = isMagic;
-		this.desc = desc;
+	private static final String ARMORFILE = "Aether/armors.txt";
+
+	private HashMap<String, String> details;
+
+	/**
+	 * @param details a hashmap of all characteristics of this item
+	 */
+	private Armor(HashMap<String, String> details) {
+		super(details);
 	}
-	
+
+	/**
+	 * Defaults to Padded Armor
+	 */
+	private Armor() {
+		this.details.put("itemID", "padded");
+		this.details.put("name", "Padded Armor");
+		this.details.put("defMod", ".9");
+		this.details.put("legCover", "true");
+		this.details.put("magicDef", "false");
+		this.details.put("isMagic", "false");
+		this.details.put("desc", "Consisting of quilted layers of cloth and batting, " +
+				"this rugged suit offers little more protection than street clothes.");
+	}
+
+	/**
+	 * Load an armor object from armors.txt
+	 * @param itemID the ID of the needed armor
+	 * @return
+	 */
 	public Armor loadArmor(String itemID) {
-		this.itemID = itemID;
-		Scanner in = new Scanner(System.in);
-		try {
-			in.close();
-			in = new Scanner(new File("armors.txt"));
-		}
-		catch (FileNotFoundException e) {
-			System.out.println("Did you move armors.txt?");
-		}
-		
-		//find and parse the given armor
-		String[] str;
-		do {
-			str = in.next().split("|");
-		} while (!str[0].equals(itemID));
-		
-		return new Armor(str[ITEMID], str[NAME], Double.parseDouble(str[DEFMOD]),
-				Boolean.parseBoolean(str[HEADCOVER]), Boolean.parseBoolean(str[LEGCOVER]),
-				Boolean.parseBoolean(str[BLUDG]), Boolean.parseBoolean(str[SLASH]),
-				Boolean.parseBoolean(str[PIERCE]), Boolean.parseBoolean(str[MAGICDEF]),
-				Boolean.parseBoolean(str[ISMAGIC]), str[DESC]);
+		return (Armor) loadItem(itemID, ARMORFILE);
 	}
 	
 	//return the damage of a strike after protection, checking if the armor covers the spot
 	public int afterArmor(int dmg, String place) {
-		if ((place.equals("leftLeg") | place.equals("rightLeg")) && !this.legCover)
+		if ((place.equals("leftLeg") || place.equals("rightLeg")) && !getLegCover())
 			return dmg;
-		return (int) this.defMod * dmg;
+		return (int) (Double.parseDouble(details.get("defMod")) * dmg);
 	}
 
-	public String getitemID() {
-		return itemID;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-
+	//getters and setters
 	public double getDefMod() {
-		return defMod;
+		return Double.valueOf(details.get("defMod"));
 	}
-	public void setDefMod(double defMod) {
-		this.defMod = defMod;
-	}
-
-	public Boolean getHeadCover() {
-		return headCover;
+	public void setDefMod(double newDefMod) {
+		details.put("defMod", String.valueOf(newDefMod));
 	}
 	public Boolean getLegCover() {
-		return legCover;
+		return Boolean.valueOf(details.get("legCover"));
 	}
-	public Boolean getBludg() {
-		return bludg;
-	}
-	public Boolean getSlash() {
-		return slash;
-	}
-	public Boolean getPierce() {
-		return pierce;
-	}
-
 	public Boolean getMagicDef() {
-		return magicDef;
+		return Boolean.valueOf(details.get("magicDef"));
 	}
-	public void setMagicDef(Boolean magicDef) {
-		this.magicDef = magicDef;
-	}
-
-	public Boolean getIsMagic() {
-		return isMagic;
-	}
-	public void setIsMagic(Boolean isMagic) {
-		this.isMagic = isMagic;
+	public void setMagicDef(Double newMagicDef) {
+		details.put("magicDef", String.valueOf(newMagicDef));
 	}
 }

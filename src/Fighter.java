@@ -9,7 +9,10 @@ import java.util.ArrayList;
 class Fighter {
 	
 	//final vars
-	private static final int LVL2 = 300
+	private static final int[] LVLEXP = {300,900,2700,6500,14000,23000,
+										34000,48000,64000,85000,100000,
+										120000,140000,165000,195000,
+										225000,265000,305000,355000};
 	
 	//Stat variables
 	private int str;
@@ -38,7 +41,7 @@ class Fighter {
 	//inventory
 	private ArrayList<Item> inventory;
 	
-	//test fighter with avg stats
+	//test fighter lvl 0 with avg stats
 	public Fighter() {
 		str = 10;
 		inte = 10;
@@ -46,6 +49,9 @@ class Fighter {
 		chari = 10;
 		con = 10;
 		maxHP = 20;
+		lvl = 0;
+		
+		setPrimary(Weapon.loadWeapon("fists"));
 	}
 	
 	public int getMaxHP() {
@@ -90,12 +96,6 @@ class Fighter {
 	public void setCon(int con) {
 		this.con = con;
 	}
-	public int getHeadHP() {
-		return headHP;
-	}
-	public void setHeadHP(int headHP) {
-		this.headHP = headHP;
-	}
 	public int getTorsoHP() {
 		return torsoHP;
 	}
@@ -138,9 +138,14 @@ class Fighter {
 	//add exp, then commence leveling process if enough exp is reached
 	public void addExp(int exp) {
 		this.exp += exp;
-		
+		if (this.exp > LVLEXP[this.lvl+1])
+			levelUp();
 	}
-
+	
+	//Level up
+	public void levelUp() {
+	}
+	
 	public Weapon getPrimary() {
 		return primary;
 	}

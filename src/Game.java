@@ -15,8 +15,10 @@ public class Game extends JFrame {
 	private static final Dimension GAME_SIZE = 	new Dimension(1200, 1200);
 	
 	public JPanel current = new JPanel();
+	public static Fighter self;
 
 	public Game() {
+		self = new Fighter();
 		Encounter.startEncounter("titleScreen", this);
 		add(current);
 		setVisible(true);

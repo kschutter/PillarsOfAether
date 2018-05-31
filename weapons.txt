@@ -1,3 +1,43 @@
-unarmed|unarmed|false|1.0|str|bludg|false|
-basicKnife|Blunt Knife|1.5|str|dex|slash|false|
-shortsword|Short Sword|2.0|str|slash|false|
+{
+itemID:fists
+itemName:fists
+itemDescription:A pair of clenched fists
+isTwoHanded:false
+isRanged:false
+dmgMod:1.0
+dmgStat:str
+dmgType:bludg
+isMagic:false
+}
+{
+itemID:basicKnife
+itemName:Blunt Knife
+itemDescription:A blunt, well-used knife
+isTwoHanded:false
+isRanged:false
+dmgMod:1.5
+dmgStat:str
+dmgType:slash
+isMagic:false
+}
+{
+itemID:shortsword
+itemName:Short Sword
+itemDescription:A sharpened, deadly shortsword
+isTwoHanded:false
+isRanged:false
+dmgMod:2.0
+dmgStat:str
+dmgType:slash
+isMagic:false
+}
+{
+itemID = 
+itemName = 
+itemDescription = 
+isRanged = 
+dmgMod = 
+dmgStat = 
+dmgType = 
+isMagic =
+}
