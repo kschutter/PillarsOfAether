@@ -1,0 +1,34 @@
+[
+  {
+    "id": "padded",
+    "name": "Padded Leather Armor",
+    "description": "Consisting of quilted layers of cloth and batting, this rugged suit offers little more protection than street clothes.",
+    "defMod": 0.9,
+    "headcover": false,
+    "legCover": true,
+    "magicDef": false,
+    "isMagic": false
+  }
+,
+  {
+    "id": leather
+    "name": Leather Armor
+    "description": The essential pieces of this armor are made of leather that has been stiffened by being boiled in oil. The rest is made of softer and more flexible materials.
+    "defMod": .8
+    "headcover": false,
+    "legCover": true,
+    "magicDef": false,
+    "isMagic": false
+  }
+,
+  {
+    "id": "placeholder",
+    "name": "placeholder",
+    "description": "placeholder",
+    "defMod": false,
+    "headcover": false,
+    "legCover": false,
+    "magicDef": false,
+    "isMagic": false
+  }
+]

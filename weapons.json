@@ -1,0 +1,50 @@
+[
+    {
+        "id": "fists",
+        "name": "fists",
+        "description": "A pair of clenched fists",
+        "isTwoHanded": false,
+        "isRanged": false,
+        "dmgMod": 1.0,
+        "dmgStat": "str",
+        "dmgType": "bludg",
+        "isMagic": false
+    }
+,
+    {
+        "id": "basicKnife",
+        "name": "Blunt Knife",
+        "description": "A blunt, well-used knife",
+        "isTwoHanded": false,
+        "isRanged": false,
+        "dmgMod": 1.5,
+        "dmgStat": "str",
+        "dmgType": "slash",
+        "isMagic": false
+    }
+,
+    {
+        "id": "shortsword",
+        "name": "Short Sword",
+        "description": "A sharpened, deadly shortsword",
+        "isTwoHanded": false,
+        "isRanged": false,
+        "dmgMod": 2.0,
+        "dmgStat": "str",
+        "dmgType": "slash",
+        "isMagic": false
+    }
+,
+    {
+        "id": "id_placeholder",
+        "name": "name_placeholder",
+        "description": "desc_placeholder",
+        "isTwoHanded": false,
+        "isRanged": false,
+        "dmgMod": 0,
+        "dmgStat": "dmgStat_placeholder",
+        "dmgType": "dmgType_placeholder",
+        "isMagic": false
+    }
+]
+
