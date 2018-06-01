@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -10,61 +12,60 @@ import java.util.Scanner;
  */
 public class Armor extends Item {
 	
-	private static final String ARMORFILE = "Aether/armors.txt";
+	private static final String ARMORFILE = "Aether/armors.json";
+	public static HashMap<String, Armor> armorList;
 
-	private HashMap<String, String> details;
+	// Armor characteristics
+	public double defMod;
+	public Boolean headCover;
+	public Boolean legCover;
+	public Boolean magicDef;
+	public Boolean isMagic;
+
+	public Armor() {}
 
 	/**
-	 * @param details a hashmap of all characteristics of this item
+	 * Read armors.json into weaponList
 	 */
-	private Armor(HashMap<String, String> details) {
-		super(details);
-	}
+	public static void loadArmors() {
 
-	/**
-	 * Defaults to Padded Armor
-	 */
-	private Armor() {
-		this.details.put("itemID", "padded");
-		this.details.put("name", "Padded Armor");
-		this.details.put("defMod", ".9");
-		this.details.put("legCover", "true");
-		this.details.put("magicDef", "false");
-		this.details.put("isMagic", "false");
-		this.details.put("desc", "Consisting of quilted layers of cloth and batting, " +
-				"this rugged suit offers little more protection than street clothes.");
+		ObjectMapper mapper = new ObjectMapper();
+		Armor[] arr = new Armor[0];
+		try {
+			arr = mapper.readValue(new File(ARMORFILE), Armor[].class);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			armorList.put(arr[i].id, arr[i]);
+		}
 	}
 
 	/**
 	 * Load an armor object from armors.txt
-	 * @param itemID the ID of the needed armor
-	 * @return
+	 * @param id the ID of the needed armor
+	 * @return the requested Armor object
 	 */
-	public Armor loadArmor(String itemID) {
-		return (Armor) loadItem(itemID, ARMORFILE);
+	public Armor getArmor(String id) {
+		return armorList.get(id);
 	}
 	
 	//return the damage of a strike after protection, checking if the armor covers the spot
 	public int afterArmor(int dmg, String place) {
-		if ((place.equals("leftLeg") || place.equals("rightLeg")) && !getLegCover())
+		if ((place.equals("leftLeg") || place.equals("rightLeg")) && !this.legCover)
 			return dmg;
-		return (int) (Double.parseDouble(details.get("defMod")) * dmg);
+		return (int) this.defMod * dmg;
 	}
 
-	//getters and setters
-	public double getDefMod() {
-		return Double.valueOf(details.get("defMod"));
-	}
-	public void setDefMod(double newDefMod) {
-		details.put("defMod", String.valueOf(newDefMod));
-	}
-	public Boolean getLegCover() {
-		return Boolean.valueOf(details.get("legCover"));
-	}
-	public Boolean getMagicDef() {
-		return Boolean.valueOf(details.get("magicDef"));
-	}
-	public void setMagicDef(Double newMagicDef) {
-		details.put("magicDef", String.valueOf(newMagicDef));
+	public String toString() {
+		String result = super.toString();
+
+		result += "Defense mod: " + this.defMod + "\n";
+		result += "Leg Cover: " + this.legCover + "\n";
+		result += "Magic Defense: " + this.magicDef + "\n";
+		result += "Is Magic: " + this.isMagic + "\n";
+
+		return result;
 	}
 }

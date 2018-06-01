@@ -22,7 +22,7 @@ public class Fight extends Encounter{
 	}
 	
 	public void createButtons() {
-		choices[0] = new JButton(Game.self.getPrimary().getName());
+		choices[0] = new JButton(Game.self.getPrimary().name);
 		choices[1] = new JButton("Load Game");
 		choices[2] = new JButton("Test Fight");
 		choices[3] = new JButton("Test Fight");

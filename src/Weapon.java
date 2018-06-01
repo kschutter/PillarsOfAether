@@ -1,7 +1,6 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.Scanner;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -10,36 +9,59 @@ import java.util.Scanner;
  */
 public class Weapon extends Item {
 
-	private static String WEAPONFILE = "Aether/weapons.txt";
+	private static final String WEAPONFILE = "Aether/weapons.json";
+	public static HashMap<String, Weapon> weaponList = new HashMap<>();
 
-	private HashMap<String, String> details;
+	// Weapon characteristics
+	public Boolean isTwoHanded;
+	public Boolean isRanged;
+	public double dmgMod;
+	public String dmgStat;
+	public String dmgType;
+	public Boolean isMagic;
+
+	public Weapon() {}
+
+    /**
+     * Read weapons.json into weaponList
+     */
+	public static void loadWeapons() {
+
+		ObjectMapper mapper = new ObjectMapper();
+		Weapon[] arr = new Weapon[0];
+		try {
+			arr = mapper.readValue(new File(WEAPONFILE), Weapon[].class);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			weaponList.put(arr[i].id, arr[i]);
+		}
+	}
+
+    /**
+     * Return the designated weapon from weapon list
+     * @param id the ID of the requested item
+     */
+	public static Weapon getWeapon(String id) {
+		return weaponList.get(id);
+	}
 
 	/**
-	 * @param details a hashmap of all characteristics of this item
+	 * Overrides toString()
+	 * @return A string representation of the object
 	 */
-	private Weapon(HashMap<String, String> details) {
-		super(details);
-	}
-	
-	// load the designated weapon from weapons.txt
-	public static Weapon loadWeapon(String weapID) {
-		return (Weapon) loadItem(weapID, WEAPONFILE);
-	}
-	
-	// getters and setters
-	public Boolean getIsRanged() {
-		return Boolean.valueOf(details.get("isRanged"));
-	}
-	public String getDmgStat() {
-		return details.get("dmgStat");
-	}
-	public double getDmgMod() {
-		return Double.parseDouble(details.get("dmgMod"));
-	}
-	public void setDmgMod(String newDmgMod) {
-		details.put("dmgMod", newDmgMod);
-	}
-	public String getDmgType() {
-		return details.get("dmgType");
+	public String toString() {
+		String result = super.toString();
+
+		result += "Is two handed: " + this.isTwoHanded + "\n";
+		result += "Is ranged: " + this.isRanged + "\n";
+		result += "Damage Modifier: " + this.dmgMod + "\n";
+		result += "Damage Stat: " + this.dmgStat + "\n";
+		result += "Damage Type: " + this.dmgType + "\n";
+		result += "Is magic: " + this.isMagic + "\n";
+
+		return result;
 	}
 }

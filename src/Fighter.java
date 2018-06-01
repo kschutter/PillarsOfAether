@@ -51,7 +51,7 @@ class Fighter {
 		maxHP = 20;
 		lvl = 0;
 		
-		setPrimary(Weapon.loadWeapon("fists"));
+		setPrimary(Weapon.getWeapon("fists"));
 	}
 	
 	public int getMaxHP() {
